@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>trianglefbo.vert</file>
+        <file>trianglefbo.frag</file>
     </qresource>
 </RCC>

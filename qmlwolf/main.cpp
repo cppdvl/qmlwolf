@@ -2,7 +2,7 @@
 #include <QQmlApplicationEngine>
 
 
-#include "scene.h"
+#include "trianglesample.h"
 
 
 
@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
 
-    qmlRegisterType<QMLWOLF::Scene>("jguarin.opengl.renderer",1,0,"QMLWOLFScene");
+    qmlRegisterType<QMLWOLF::TriangleExample>("jguarin.opengl.renderer",1,0,"QMLWOLFScene");
 
 
     QQmlApplicationEngine engine;

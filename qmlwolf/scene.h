@@ -9,11 +9,12 @@ namespace QMLWOLF {
     class Scene : public QQuickFramebufferObject
     {
         Q_OBJECT
-        mutable QMLWOLF::FBO* _PScene{nullptr};
+    protected:
+        mutable QMLWOLF::FBO* pFBO{nullptr};
         QQuickWindow* pQQWindow{nullptr};
 
         QSize m_size {320, 200};
-        mutable QColor m_rectangleColor{QColor::fromRgbF(0.0f, 0.0f, 0.0f, 1.0f)};
+        mutable QColor m_backgroundColor{QColor::fromRgbF(0.33f, 0.0f, 0.18f, 1.0f)};
 
 
     public:
@@ -22,10 +23,9 @@ namespace QMLWOLF {
 
     signals:
         //Let know our Scene is Ready
-        void sceneLoaded();
+        void renderingBackendInitialized() const;
 
     public slots:
-        virtual void initializationFinished();
 
 
     };

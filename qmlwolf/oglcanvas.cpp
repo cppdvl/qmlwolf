@@ -1,5 +1,4 @@
 #include "oglcanvas.h"
-
 QMLWOLF::FBO::FBO()
 {
 
@@ -7,7 +6,6 @@ QMLWOLF::FBO::FBO()
 
     //Inicializar el Rendering => OPENGL
     initializeOpenGLFunctions();
-
     //Now you can start your scene data: vertexes, normals, texture coordinates etc.
     //Tipically you would want to have you renderer to be loaded with Game, Scene data,
     //And yet this should be generic... so using a file, like .OBJ, or .DAE etc.
@@ -26,7 +24,8 @@ QOpenGLFramebufferObject* QMLWOLF::FBO::createFramebufferObject(const QSize &rSi
     return ret;
 }
 
-//*************************** THE GAME SCENE ***********************************/
+//*************************** THE GAME SCENE *********************************************/
+//*************************** THE GAME SCENE : DRAWING ***********************************/
 void QMLWOLF::OGLFBO::render()
 {
     //Ok here we draw frame after frame.... after frame.... after frame.... after frame....

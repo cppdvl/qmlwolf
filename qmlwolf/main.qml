@@ -12,17 +12,17 @@ Window {
     property color rectanglecolor: "deepskyblue";
     Rectangle{
         id: qmlRectangle
-        width: 320
-        height: 260
+        width: 400
+        height: 400
         anchors.centerIn: parent
         QMLWOLFScene
         {
             id: openglRectangle
-            anchors.fill: parent
+            anchors.fill : parent
+            onRenderingBackendInitialized :
 
-            onSceneLoaded:
                 () => {
-                    openglRectangle.initializationFinished()
+                    console.log("Rendering Backend Initialized!!!");
                 }
         }
     }

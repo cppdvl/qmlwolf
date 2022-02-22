@@ -19,6 +19,8 @@ find_package(Qt5 COMPONENTS Core Quick REQUIRED)
 set(PROJECT_SOURCES
         scene.h
         scene.cpp
+        trianglesample.h
+        trianglesample.cpp
         oglcanvas.h
         oglcanvas.cpp
         main.cpp

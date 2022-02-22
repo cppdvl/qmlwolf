@@ -4,31 +4,21 @@
 QMLWOLF::Scene::Scene()
 {
 
-    qInfo() << "OGLCanvas";
+    qInfo() << "Scene Item CTOR";
     setMirrorVertically(true);
     connect(this, &QQuickItem::windowChanged, [this](){
-
-        qInfo() << "Connecting the before rendering signal to the scene loaded slot.";
         this->pQQWindow = this->window();
-        if (this -> pQQWindow) connect(this->pQQWindow, &QQuickWindow::beforeRendering, this, &QMLWOLF::Scene::sceneLoaded);
+        qInfo() << "QQuickWindow:" << Qt::hex << (void*)this->pQQWindow;
     });
 
 }
 
 QQuickFramebufferObject::Renderer* QMLWOLF::Scene::createRenderer() const
 {
-    _PScene = new OGLFBO(m_rectangleColor);
-    return _PScene;
+    pFBO = new OGLFBO(m_backgroundColor);
+    qInfo() << "Scene Item FrameBuffer Object (pFBO) address:" << Qt::hex << pFBO;
+    emit renderingBackendInitialized();
+    return pFBO;
 }
 
 
-void QMLWOLF::Scene::initializationFinished()
-{
-    //Prevent any call in any case the scene is not ready
-    if (!_PScene) return;
-    if (pQQWindow)
-    {
-        qInfo() << "Disconnecting";
-        disconnect(this->pQQWindow, &QQuickWindow::beforeRendering, this, &QMLWOLF::Scene::sceneLoaded);
-    }
-}

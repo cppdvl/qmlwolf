@@ -25,6 +25,7 @@ namespace QMLWOLF {
 
     class OGLFBO : public FBO
     {
+    protected:
         QColor& _backgroundColor;
     public:
         OGLFBO(QColor& color) : FBO(),
