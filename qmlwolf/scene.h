@@ -26,7 +26,7 @@ namespace QMLWOLF {
         void renderingBackendInitialized() const;
 
     public slots:
-
+        void setBackgroundColor(QColor color);
 
     };
 

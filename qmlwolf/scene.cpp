@@ -22,3 +22,7 @@ QQuickFramebufferObject::Renderer* QMLWOLF::Scene::createRenderer() const
 }
 
 
+void QMLWOLF::Scene::setBackgroundColor(QColor color)
+{
+    m_backgroundColor = color;
+}

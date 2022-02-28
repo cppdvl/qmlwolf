@@ -3,5 +3,7 @@
         <file>main.qml</file>
         <file>trianglefbo.vert</file>
         <file>trianglefbo.frag</file>
+        <file>PropertySlider.qml</file>
+        <file>ColorSelector.qml</file>
     </qresource>
 </RCC>
