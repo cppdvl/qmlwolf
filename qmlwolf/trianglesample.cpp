@@ -1,6 +1,5 @@
 #include "trianglesample.h"
 #include <array>
-
 std::array<float, 18> triangleData {
      0.50f,  0.00f, -1.0f, 1.0f, 0.0f, 0.0f,
      0.00f,  0.50f, -1.0f, 0.0f, 1.0f, 0.0f,
@@ -17,6 +16,7 @@ QMLWOLF::TriangleFBO::TriangleFBO(QColor& color) : OGLFBO(color)
     auto attach = [this](auto type, QString filename) -> bool
     {
         qInfo() << (type == QOpenGLShader::Vertex ? "Vertex Shader" : "Fragment Shader");
+
         return pProgram->addShaderFromSourceFile(type,filename);
     };
     auto link = [this]() -> bool
@@ -27,6 +27,13 @@ QMLWOLF::TriangleFBO::TriangleFBO(QColor& color) : OGLFBO(color)
     if (!attach(QOpenGLShader::Vertex, ":/trianglefbo.vert"))  qInfo() << pProgram->log(); else qInfo() << "OK";
     if (!attach(QOpenGLShader::Fragment, ":/trianglefbo.frag"))qInfo() << pProgram->log(); else qInfo() << "OK";
     if (!link()) qInfo() << pProgram->log(); else qInfo() << "OK";
+
+
+    mCamera.mProjectionId = pProgram->uniformLocation("projection");
+    mCamera.mViewId = pProgram->uniformLocation("view");
+    mModelId = pProgram->uniformLocation("model");
+
+    assert(mCamera.mProjectionId != -1 && mCamera.mViewId != -1 && mModelId != -1);
 
     //VERTEX BUFFER OBJECT & VAO
     QOpenGLBuffer mVBO;
@@ -65,6 +72,11 @@ void QMLWOLF::TriangleFBO::render()
 
     pProgram->bind();
     {
+        //Plug data into shader
+        pProgram->setUniformValue(mCamera.mProjectionId, mCamera.cameraProjection);
+        pProgram->setUniformValue(mCamera.mViewId, mCamera.cameraView);
+        pProgram->setUniformValue(mModelId, mTriangleTransform);
+
         mVAO.bind();
         glDrawArrays(GL_TRIANGLES, 0, 3);
         mVAO.release();
