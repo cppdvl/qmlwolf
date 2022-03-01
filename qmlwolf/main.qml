@@ -14,13 +14,13 @@ Window {
 
 
     ColumnLayout{
-        width: 400
+        width: 800
         anchors.centerIn: parent
         spacing: 5
         Rectangle{
             id: qmlRectangle
             width: parent.width
-            height: 400
+            height: 500
 
             QMLWOLFScene
             {
