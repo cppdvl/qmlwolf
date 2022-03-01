@@ -28,12 +28,14 @@ QMLWOLF::TriangleFBO::TriangleFBO(QColor& color) : OGLFBO(color)
     if (!attach(QOpenGLShader::Fragment, ":/trianglefbo.frag"))qInfo() << pProgram->log(); else qInfo() << "OK";
     if (!link()) qInfo() << pProgram->log(); else qInfo() << "OK";
 
-
+    //Attach Camera (Model & View) and Triangle (Model) to shader.
     mCamera.mProjectionId = pProgram->uniformLocation("projection");
     mCamera.mViewId = pProgram->uniformLocation("view");
     mModelId = pProgram->uniformLocation("model");
 
-    assert(mCamera.mProjectionId != -1 && mCamera.mViewId != -1 && mModelId != -1);
+
+    //Calculate projectionMatrix
+    mCamera.bDirty = true;
 
     //VERTEX BUFFER OBJECT & VAO
     QOpenGLBuffer mVBO;
@@ -70,12 +72,22 @@ void QMLWOLF::TriangleFBO::render()
     glClearColor(_backgroundColor.redF(), _backgroundColor.greenF(), _backgroundColor.blueF(), _backgroundColor.alphaF());
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+
+    //Update the Camera.
+    if (mCamera.bDirty)
+    {
+        mCamera.cameraProjection.perspective(mCamera.mFov,mCamera.mAspectRatio, mCamera.mNear, mCamera.mFar);
+        mCamera.bDirty = false;
+    }
+
     pProgram->bind();
     {
         //Plug data into shader
         pProgram->setUniformValue(mCamera.mProjectionId, mCamera.cameraProjection);
         pProgram->setUniformValue(mCamera.mViewId, mCamera.cameraView);
         pProgram->setUniformValue(mModelId, mTriangleTransform);
+
+
 
         mVAO.bind();
         glDrawArrays(GL_TRIANGLES, 0, 3);

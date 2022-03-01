@@ -11,10 +11,16 @@ namespace QMLWOLF
 
     struct CameraExample {
 
+        bool bDirty {true};
         QMatrix4x4 cameraProjection {}; //Identity Matrix
         QMatrix4x4 cameraView {}; //Identity Matrix
         int mProjectionId{-1};
         int mViewId{-1};
+
+        float mFov{60.0f};
+        const float mNear{.1};
+        const float mFar{100.0f};
+        const float mAspectRatio{1.6f};
 
 
     };
