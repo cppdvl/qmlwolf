@@ -25,6 +25,7 @@ Rectangle {
         property int handleHeight: parent.height
         property alias value: sliderControl.value
 
+        property real _width_ : .1375
         signal floatSliderChanged()
         Rectangle {
             id: textRectangle
@@ -43,8 +44,14 @@ Rectangle {
             from: 0
             to: 1.0
             stepSize: 0.001
-            implicitWidth: parent.width * (1.0 - .1375)
+            implicitWidth: parent.width *  0.76
             onMoved : () => { parent.floatSliderChanged(); }
+            Rectangle {
+                color:"transparent"
+                anchors.fill: parent
+                border.color: "black"
+            }
+
             background: Rectangle {
                 x: sliderControl.leftPadding
                 y: sliderControl.topPadding + sliderControl.availableHeight *.5 - height *.5
@@ -71,6 +78,16 @@ Rectangle {
                 border.color: "#bdbebf"
             }
 
+        }
+        Rectangle {
+            color: "transparent"
+            width: parent.width * .1375 * .5
+            height: sliderControl.height
+            Text {
+                anchors.fill: parent
+                verticalAlignment: Text.AlignVCenter
+                text: sliderControl.value.toFixed(3)
+            }
         }
     }
 }

@@ -34,13 +34,26 @@ Window {
                     }
             }
         }
-
-        ColorSelector{
-            onColorselectionChanged: () => {
-                                         openglRectangle.setBackgroundColor(colorselection)
-                                     }
+        RowLayout {
+            width: parent.width
+            height: 60
+            spacing: 0
+            ColorSelector{
+                id: colorSelector
+                width: parent.width * .5
+                height: parent.height
+                onColorselectionChanged: () => { openglRectangle.setBackgroundColor(colorselection); }
+            }
+            ColorSelector{
+                id: colorSelector2
+                width: parent.width * .5
+                height: parent.height
+            }
 
         }
+
+
+
     }
 
 }
