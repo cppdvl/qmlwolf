@@ -5,5 +5,6 @@
         <file>trianglefbo.frag</file>
         <file>PropertySlider.qml</file>
         <file>ColorSelector.qml</file>
+        <file>CameraOptions.qml</file>
     </qresource>
 </RCC>

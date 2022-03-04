@@ -44,10 +44,11 @@ Window {
                 height: parent.height
                 onColorselectionChanged: () => { openglRectangle.setBackgroundColor(colorselection); }
             }
-            ColorSelector{
+            CameraOptions{
                 id: colorSelector2
                 width: parent.width * .5
                 height: parent.height
+                onFovChanged: () => { openglRectangle.setCameraFOV(fov); }
             }
 
         }

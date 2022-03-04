@@ -7,6 +7,8 @@ Rectangle {
     id:root
     property alias label: aSlider.label
     property alias value: aSlider.value
+    property alias to: aSlider.to
+    property alias from: aSlider.from
     width: parent.width
     height: 10
     signal propertySliderChanged()
@@ -24,6 +26,8 @@ Rectangle {
         property alias label: textSlider.text
         property int handleHeight: parent.height
         property alias value: sliderControl.value
+        property alias from: sliderControl.from
+        property alias to: sliderControl.to
 
         property real _width_ : .1375
         signal floatSliderChanged()
