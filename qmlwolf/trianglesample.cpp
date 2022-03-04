@@ -76,7 +76,8 @@ void QMLWOLF::TriangleFBO::render()
     //Update the Camera.
     if (mCamera.bDirty)
     {
-        mCamera.cameraProjection.perspective(mCamera.mFov,mCamera.mAspectRatio, mCamera.mNear, mCamera.mFar);
+        mCamera.cameraProjection = QMatrix4x4{};
+        mCamera.cameraProjection.perspective(mCamera.mFov, mCamera.mAspectRatio, mCamera.mNear, mCamera.mFar);
         mCamera.bDirty = false;
     }
 
@@ -86,8 +87,6 @@ void QMLWOLF::TriangleFBO::render()
         pProgram->setUniformValue(mCamera.mProjectionId, mCamera.cameraProjection);
         pProgram->setUniformValue(mCamera.mViewId, mCamera.cameraView);
         pProgram->setUniformValue(mModelId, mTriangleTransform);
-
-
 
         mVAO.bind();
         glDrawArrays(GL_TRIANGLES, 0, 3);
@@ -110,5 +109,11 @@ QQuickFramebufferObject::Renderer* QMLWOLF::TriangleExample::createRenderer() co
     qInfo() << __FILE__ << ":" << __LINE__ << " => Scene Item FrameBuffer address:" << Qt::hex << pFBO;
     emit renderingBackendInitialized();
     return pFBO;
+}
+
+void QMLWOLF::TriangleExample::setCameraFOV(float fov)
+{
+    auto pTriangleFBO = dynamic_cast<TriangleFBO*>(pFBO);
+    if (pTriangleFBO) pTriangleFBO->SetCameraFOV(fov);
 }
 

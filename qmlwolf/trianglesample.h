@@ -38,6 +38,12 @@ namespace QMLWOLF
         QOpenGLVertexArrayObject mVAO;
 
         void render() override;
+
+        void SetCameraFOV(float fov)
+        {
+            mCamera.mFov = fov;
+            mCamera.bDirty = true;
+        }
     };
 
     class TriangleExample : public QMLWOLF::Scene
@@ -47,7 +53,7 @@ namespace QMLWOLF
         TriangleExample();
         QQuickFramebufferObject::Renderer* createRenderer() const override;
     public slots:
-
+        void setCameraFOV(float fov);
     };
 }
 
