@@ -27,9 +27,11 @@ namespace QMLWOLF {
     {
     protected:
         QColor& _backgroundColor;
+        QQuickWindow* _pQQW{nullptr};
     public:
-        OGLFBO(QColor& color) : FBO(),
-            _backgroundColor(color)
+        OGLFBO(QColor& color, QQuickWindow* pWindow = nullptr) : FBO(),
+            _backgroundColor(color),
+            _pQQW(pWindow)
         {
         }
         void render() override;

@@ -27,13 +27,13 @@ namespace QMLWOLF
 
     class TriangleFBO : public QMLWOLF::OGLFBO
     {
-        QMatrix4x4 mTriangleTransform;
+        QMatrix4x4 mTriangleTransform{};
         int mModelId{-1};
         QMLWOLF::CameraExample mCamera;
 
 
     public:
-        TriangleFBO(QColor&);
+        TriangleFBO(QColor&, QQuickWindow*);
         QOpenGLShaderProgram* pProgram{nullptr};
         QOpenGLVertexArrayObject mVAO;
 

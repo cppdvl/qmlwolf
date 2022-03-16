@@ -1,5 +1,6 @@
 #include "trianglesample.h"
 #include <array>
+#include <QWindow>
 std::array<float, 18> triangleData {
      0.50f,  0.00f, -1.0f, 1.0f, 0.0f, 0.0f,
      0.00f,  0.50f, -1.0f, 0.0f, 1.0f, 0.0f,
@@ -8,7 +9,7 @@ std::array<float, 18> triangleData {
 
 
 
-QMLWOLF::TriangleFBO::TriangleFBO(QColor& color) : OGLFBO(color)
+QMLWOLF::TriangleFBO::TriangleFBO(QColor& color, QQuickWindow* pWindow) : OGLFBO(color, pWindow)
 {
     //SHADER
     qInfo() << __FILE__ << ":" << __LINE__ << "TriangleFBO";
@@ -105,7 +106,7 @@ QMLWOLF::TriangleExample::TriangleExample() : Scene()
 
 QQuickFramebufferObject::Renderer* QMLWOLF::TriangleExample::createRenderer() const
 {
-    pFBO = new TriangleFBO(m_backgroundColor);
+    pFBO = new TriangleFBO(m_backgroundColor, pQQWindow);
     qInfo() << __FILE__ << ":" << __LINE__ << " => Scene Item FrameBuffer address:" << Qt::hex << pFBO;
     emit renderingBackendInitialized();
     return pFBO;
