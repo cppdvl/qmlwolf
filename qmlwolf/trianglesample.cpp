@@ -2,9 +2,9 @@
 #include <array>
 #include <QWindow>
 std::array<float, 18> triangleData {
-     0.50f,  0.00f, -1.0f, 1.0f, 0.0f, 0.0f,
-     0.00f,  0.50f, -1.0f, 0.0f, 1.0f, 0.0f,
-     -0.50f, 0.00f, -1.0f, 0.0f, 0.0f, 1.0f
+     0.50f,  0.00f, 0.0f, 1.0f, 0.0f, 0.0f,
+     0.00f,  0.50f, 0.0f, 0.0f, 1.0f, 0.0f,
+     -0.50f, 0.00f, 0.0f, 0.0f, 0.0f, 1.0f
 };
 
 
@@ -87,6 +87,10 @@ void QMLWOLF::TriangleFBO::render()
         //Plug data into shader
         pProgram->setUniformValue(mCamera.mProjectionId, mCamera.cameraProjection);
         pProgram->setUniformValue(mCamera.mViewId, mCamera.cameraView);
+
+        mTriangleTransform.setToIdentity();
+        mTriangleTransform.translate(0.0f, 0.0f, -3.0f);
+        mTriangleTransform.rotate(100.0 * mFrame / _pSCRN->refreshRate(), 0, 1, 0);
         pProgram->setUniformValue(mModelId, mTriangleTransform);
 
         mVAO.bind();
@@ -94,6 +98,7 @@ void QMLWOLF::TriangleFBO::render()
         mVAO.release();
     }
     pProgram->release();
+    mFrame++;
 
     glFlush();
     update();

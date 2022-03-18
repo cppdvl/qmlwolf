@@ -2,6 +2,7 @@
 #define TRIANGLESAMPLE_H
 
 #include "scene.h"
+#include <QScreen>
 #include <QOpenGLBuffer>
 #include <QOpenGLShaderProgram>
 #include <QOpenGLVertexArrayObject>
@@ -31,6 +32,7 @@ namespace QMLWOLF
         int mModelId{-1};
         QMLWOLF::CameraExample mCamera;
 
+        int mFrame{0};
 
     public:
         TriangleFBO(QColor&, QQuickWindow*);
