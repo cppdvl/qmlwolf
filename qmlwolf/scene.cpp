@@ -8,7 +8,8 @@ QMLWOLF::Scene::Scene()
     setMirrorVertically(true);
     connect(this, &QQuickItem::windowChanged, [this](){
         this->pQQWindow = this->window();
-        qInfo() << "QQuickWindow:" << Qt::hex << (void*)this->pQQWindow;
+        qInfo() << __FILE__ << ":" << __LINE__ << " QQuickWindow:" << Qt::hex << (void*)this->pQQWindow;
+
     });
 
 }

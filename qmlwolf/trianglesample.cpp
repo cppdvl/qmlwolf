@@ -1,6 +1,9 @@
 #include "trianglesample.h"
 #include <array>
 #include <QWindow>
+
+#include "utils.h"
+
 std::array<float, 18> triangleData {
      0.50f,  0.00f, 0.0f, 1.0f, 0.0f, 0.0f,
      0.00f,  0.50f, 0.0f, 0.0f, 1.0f, 0.0f,
@@ -61,18 +64,17 @@ QMLWOLF::TriangleFBO::TriangleFBO(QColor& color, QQuickWindow* pWindow) : OGLFBO
     mVBO.release();
     pProgram->release();
 
+    //Enable the Capture of screenshots
+    _enableCapture();
+
 }
 void QMLWOLF::TriangleFBO::render()
 {
+
+
     //Ok here we draw frame after frame.... after frame.... after frame.... after frame....
     //We will draw ONLY a ONE COLOR background screen.
-    glEnable(GL_DEPTH_TEST);
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-    glClearColor(_backgroundColor.redF(), _backgroundColor.greenF(), _backgroundColor.blueF(), _backgroundColor.alphaF());
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+    _renderStart();
 
     //Update the Camera.
     if (mCamera.bDirty)
@@ -85,6 +87,7 @@ void QMLWOLF::TriangleFBO::render()
     pProgram->bind();
     {
         //Plug data into shader
+
         pProgram->setUniformValue(mCamera.mProjectionId, mCamera.cameraProjection);
         pProgram->setUniformValue(mCamera.mViewId, mCamera.cameraView);
 
@@ -100,9 +103,10 @@ void QMLWOLF::TriangleFBO::render()
     pProgram->release();
     mFrame++;
 
-    glFlush();
-    update();
+    _renderEnd();
+
 }
+
 
 QMLWOLF::TriangleExample::TriangleExample() : Scene()
 {
@@ -123,3 +127,13 @@ void QMLWOLF::TriangleExample::setCameraFOV(float fov)
     if (pTriangleFBO) pTriangleFBO->SetCameraFOV(fov);
 }
 
+void QMLWOLF::TriangleExample::captureScreenShot()
+{
+    qInfo() << QMLWOLF::Utils::NoPath(__FILE__) << ":" << __LINE__ << " => Capturing ScreenShot!!!! ";
+    auto p = dynamic_cast<QMLWOLF::OGLFBO*>(pFBO);
+    if (p)
+    {
+        p->capture();
+        qInfo() << "Will Capture!!!!";
+    }
+}

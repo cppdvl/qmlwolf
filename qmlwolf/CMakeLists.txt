@@ -17,10 +17,16 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick REQUIRED)
 find_package(Qt5 COMPONENTS Core Quick REQUIRED)
 
 set(PROJECT_SOURCES
+        utils.h
+        utils.cpp
+        cam.h
+        cam.cpp
         scene.h
         scene.cpp
         trianglesample.h
         trianglesample.cpp
+        wolflevel.h
+        wolflevel.cpp
         oglcanvas.h
         oglcanvas.cpp
         main.cpp

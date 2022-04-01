@@ -46,6 +46,7 @@ namespace QMLWOLF
             mCamera.mFov = fov;
             mCamera.bDirty = true;
         }
+
     };
 
     class TriangleExample : public QMLWOLF::Scene
@@ -56,6 +57,7 @@ namespace QMLWOLF
         QQuickFramebufferObject::Renderer* createRenderer() const override;
     public slots:
         void setCameraFOV(float fov);
+        void captureScreenShot();
     };
 }
 
